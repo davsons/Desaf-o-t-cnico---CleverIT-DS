@@ -1,0 +1,198 @@
+{
+	"info": {
+		"_postman_id": "a330d954-eac3-4b75-90f8-d3b15df5f5af",
+		"name": "Desafio-Falabella-Todos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET - Todos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Validamos que el status sea 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validamos que la estructura de los posts sea la correcta\", () => {\r",
+							"    pm.expect(pm.response.text()).to.include(\"userId\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"title\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"completed\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header es application/json\", () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tiempo de respuesta debe ser menor a 500\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"/// Desafio//\r",
+							"\r",
+							"pm.test(\"Verify required fields and body respose\"  , function () {\r",
+							"  \r",
+							"    var jsonData = pm.response.json();\r",
+							"    if (!jsonData.length <0){\r",
+							"        \r",
+							"    \r",
+							"    for (var i = 0; i < jsonData.length; i++) {  \r",
+							"         pm.expect(jsonData[i].id, \"id is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].id, \"id is not available\").to.be.a('number');\r",
+							"         pm.expect(jsonData[i].userId, \"userId is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].title, \"title is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].completed, \"completed is not available\").not.equal(null);\r",
+							"         \r",
+							"         }  \r",
+							"      \r",
+							"}else{\r",
+							"    console.log(\"Error in Body\")\r",
+							"    \r",
+							"\r",
+							"\r",
+							"}\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Connection\", () => {\r",
+							"    pm.expect(pm.response.headers.get('Connection')).to.eql('keep-alive');\r",
+							"});\r",
+							"    \r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{endPointTodos}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{endPointTodos}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Todos Not Found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validamos que el status sea 404 al ingresar EndPoint incorrecto\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/todo",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"todo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Todos especifico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Validar que trae el objeto correcto especficado\", () => {\r",
+							"  pm.expect(jsonData.title).to.include(\"delectus aut autem\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"///desafio///\r",
+							"pm.test(\"Verify required fields and body respose\"  , function () {\r",
+							"  \r",
+							"    var jsonData = pm.response.json();\r",
+							"    if (!jsonData.length <0){\r",
+							"        \r",
+							"    \r",
+							"    for (var i = 0; i < jsonData.length; i++) { \r",
+							"         pm.expect(jsonData[i].userId, \"userId is not available\").not.equal(null); \r",
+							"         pm.expect(jsonData[i].id, \"id is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].id, \"id is not available\").to.be.a('number');\r",
+							"         pm.expect(jsonData[i].title, \"title is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].completed, \"completed is not available\").not.equal(null);\r",
+							"         \r",
+							"         }  \r",
+							"      \r",
+							"}else{\r",
+							"    console.log(\"Error in Body\")\r",
+							"    \r",
+							"\r",
+							"\r",
+							"}\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify completed is = false\", () => {\r",
+							"  pm.expect(jsonData.completed).to.be.false;\r",
+							"})\r",
+							"\r",
+							"pm.test(\"answer below to 500\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"name of server\", () => {\r",
+							"  pm.expect(pm.response.headers.get('server')).to.eql('cloudflare')});\r",
+							"\r",
+							"  pm.test(\"value of vary\", () => {\r",
+							"  pm.expect(pm.response.headers.get('vary')).to.eql('Origin, Accept-Encoding')});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{endPointTodos}}/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{endPointTodos}}",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

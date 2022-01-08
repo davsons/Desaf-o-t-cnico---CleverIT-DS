@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "b7b127f3-942d-4b68-978e-c6431b28f3d5",
+		"name": "Desafio-Falabella-Users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET - Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Validamos que el status sea 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validamos que la estructura de los posts sea la correcta\", () => {\r",
+							"    pm.expect(pm.response.text()).to.include(\"id\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"username\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"email\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"address\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"street\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"suite\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"city\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"zipcode\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"geo\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"lat\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"lng\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"phone\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"website\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"company\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"name\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"catchPhrase\");\r",
+							"    pm.expect(pm.response.text()).to.include(\"bs\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type header es application/json; charset=utf-8\", () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Tiempo de respuesta debe ser menor a 500\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"//Desafio//\r",
+							"\r",
+							"pm.test(\"Verify required fields and body respose\"  , function () {\r",
+							"  \r",
+							"    var jsonData = pm.response.json();\r",
+							"    if (!jsonData.length <0){\r",
+							"        \r",
+							"    \r",
+							"    for (var i = 0; i < jsonData.length; i++) {  \r",
+							"         pm.expect(jsonData[i].id, \"id is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].id, \"id is not available\").to.be.a('number');\r",
+							"         pm.expect(jsonData[i].name, \"Name is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].username, \"username is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].email, \"email is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].email).to.contain('@','.');\r",
+							"         pm.expect(jsonData[i].address.street, \"street is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].address.suite, \"suite is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].address.city, \"city is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].address.zipcode, \"zipcode is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].address.geo.lat, \"lat is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].address.geo.lng, \"lng is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].phone, \"phone is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].website, \"website is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].company.name, \"name is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].company.catchPhrase, \"catchPhrase is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].company.bs, \"bs is not available\").not.equal(null);\r",
+							"\r",
+							"         }  \r",
+							"      \r",
+							"}else{\r",
+							"    console.log(\"Error in Body\")\r",
+							"    \r",
+							"\r",
+							"\r",
+							"}\r",
+							"});\r",
+							"\r",
+							"console.log(\"Date ----->\" + postman.getResponseHeader('Date'))\r",
+							"console.log(\"Content-Encoding ----->\" + postman.getResponseHeader('Content-Encoding'));\r",
+							"\r",
+							"    pm.test(\"Verify Content-EncodingDs\", () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Encoding')).to.eql('br')});\r",
+							"\r",
+							"    \r",
+							"\r",
+							"      \r",
+							"\r",
+							"  \r",
+							"\r",
+							" \r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{endPointUsers}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{endPointUsers}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - User especifico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Validar que trae el objeto correcto especficado\", () => {\r",
+							"  pm.expect(jsonData.name).to.include(\"Leanne Graham\");\r",
+							"  pm.expect(jsonData.username).to.include(\"Bret\");\r",
+							"  pm.expect(jsonData.email).to.include(\"Sincere@april.biz\");\r",
+							"});\r",
+							"\r",
+							"//// Desafio///\r",
+							"\r",
+							"pm.test(\"Status code is 200\", () => {\r",
+							"  pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"pm.test(\"Verify Content-EncodingDs\", () => {\r",
+							"    pm.expect(pm.response.headers.get('Content-Encoding')).to.eql('br')});\r",
+							"\r",
+							"    pm.test(\"Verify Host\", ()=> {\r",
+							"        pm.expect(pm.request.headers.get('Host')).to.eql('jsonplaceholder.typicode.com')}); \r",
+							"\r",
+							"console.log\r",
+							"\r",
+							"pm.test(\"Validamos que el id sea el correcto\", () => {\r",
+							"    pm.expect(jsonData.id).to.eql(1)});\r",
+							"\r",
+							"pm.test(\"Verify required fields and body respose\"  , function () {\r",
+							"  \r",
+							"    var jsonData = pm.response.json();\r",
+							"    if (!jsonData.length <0){\r",
+							"        \r",
+							"    \r",
+							"    for (var i = 0; i < jsonData.length; i++) {  \r",
+							"         pm.expect(jsonData[i].id, \"id is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].id, \"id is not available\").to.be.a('number');\r",
+							"         pm.expect(jsonData[i].name, \"Name is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].username, \"username is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].email, \"email is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].email).to.contain('@','.');\r",
+							"         pm.expect(jsonData[i].address.street, \"street is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].address.suite, \"suite is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].address.city, \"city is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].address.zipcode, \"zipcode is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].address.geo.lat, \"lat is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].address.geo.lng, \"lng is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].phone, \"phone is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].website, \"website is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].company.name, \"name is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].company.catchPhrase, \"catchPhrase is not available\").not.equal(null);\r",
+							"         pm.expect(jsonData[i].company.bs, \"bs is not available\").not.equal(null);\r",
+							"\r",
+							"         }  \r",
+							"      \r",
+							"}else{\r",
+							"    console.log(\"Error in Body\")\r",
+							"    \r",
+							"\r",
+							"\r",
+							"}\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{endPointUsers}}/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{endPointUsers}}",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Users Not Found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validamos que el status sea 404 al ingresar EndPoint incorrecto\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/user",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
